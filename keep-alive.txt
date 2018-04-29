@@ -1,0 +1,28 @@
+keep-alive组件提供了include与exclude两个属性来允许组件有条件地进行缓存，二者都可以用逗号分隔字符串、正则表达式或一个数组来表示。
+
+
+<keep-alive include="a">
+  <component></component>
+</keep-alive>
+
+将缓存name为a的组件。
+
+
+<keep-alive exclude="a">
+  <component></component>
+</keep-alive>
+
+
+
+
+
+if (this.cache[key]) {
+    vnode.componentInstance = this.cache[key].componentInstance
+} else {
+    this.cache[key] = vnode
+}
+
+接下来的事情很简单，根据key在this.cache中查找，如果存在则说明之前已经缓存过了，直接将缓存的vnode的componentInstance（组件实例）覆盖到目前的vnodevnode存储在cache中。
+
+ 
+
