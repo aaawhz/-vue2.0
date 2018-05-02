@@ -2,7 +2,9 @@
 图解vue2.0 
 `alert(1)`
 
-vue 作为mvvm, 组建化框架, 有vuex vue-router 再结合webpack形成一个整体的前端解决方案.
+vue 作为mvvm
+===
+组建化框架, 有vuex vue-router 再结合webpack形成一个整体的前端解决方案.
 
 
 mvvm相对于mvc,  它们核心思想都是数据驱动视图, mvvm在数据变化后自动更新视图, 而mvc虽然分层, 但还是要手动维护数据和视图的关系, 
