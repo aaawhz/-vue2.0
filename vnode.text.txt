@@ -1,0 +1,56 @@
+
+1. ast = parse(template)
+
+  code = generate(ast)
+
+ 		genElement   -->  staticRoot ? getStatic  --> "_m(0) _m(1)"
+
+                   		 递归 genLelemnt(node) genText .. --> "_v( text.expression ),_c.." 
+
+
+
+   return { render: ('with(this){ return " + code + "}"),
+           statciRenderFns: state.staticRenderFns  --> genElement() 
+
+		with(this){return _c('ul',[_c('li',[_v("a")])])}"
+ 
+		"with(this){return _c('ul',[_c('li',[_v("a")]),_c('li',[_v("b")])])}
+
+}
+
+
+2. $mount  --> mountComponent() --> new Watcher()  --> this.get() --> this.getter.call -->
+
+ vm.update(vm._render() )
+
+   2.0  -->   vnode = render.call(vm._renderProxy, vm.$createElement)
+
+	
+   2.1 --> _m() --> renderStatic (statciRenderFns() 得到vnode ) --> markStatic --> markStaticNode
+
+        -->  node.isStatic = true 
+
+3. vm.update --> lifecycleMixin 中的 _update -->  patch -- >  边diff 边 调用原生方法 更新 dom
+
+
+
+
+
+
+
+
+
+click --> 触发addEventListener的回调,  withMacroTask --> this.ok = !this.ok
+
+---> get --> set --> notify -->  Watcher.prototype.update
+
+--> queueWatcher(this) 收集 这个watcher ; 因为可能在一次操作多次
+
+this.ok = false; this.ok = true; 比如同时赋值两次, 有了queue队列, wathcer.run只会发生一次
+
+has={} 用它来缓存 watcher.id --> nextTick 中 updateComponent
+
+
+
+
+ 

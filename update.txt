@@ -1,0 +1,76 @@
+
+e.obj.b = 5
+
+setter -> Dep -> Watcher -> patch -> 视图
+
+
+queue来 push(watcher)
+
+
+update  :
+
+
+ computed一堆说明判断...      这是进入 computed的watcher  1. 
+
+ queueWatcher(this)    就是进入 render 也就模板的订阅 watcher  需要diff  2.
+
+
+miroctask  渲染 macrotask  https://zhuanlan.zhihu.com/p/28051505
+
+1.this.getAndInvoke(function () {
+        this$1.dep.notify();
+      });
+
+ 
+ 
+
+
+2.
+
+queueWatcher :  
+ 
+把watcher 推入到 队列, 同样id的 watcher会被过滤, 触发是队列正在刷新是 被放进来
+
+
+
+  var id = watcher.id;
+  if (has[id] == null) {
+    has[id] = true;
+	
+    if (!flushing) { //如果不是在更新, 放入队列
+      queue.push(watcher);
+    } else {
+      // if already flushing, splice the watcher based on its id
+      // if already past its id, it will be run next immediately.
+      var i = queue.length - 1;
+      while (i > index && queue[i].id > watcher.id) {
+        i--;
+      }
+      queue.splice(i + 1, 0, watcher);
+    }
+    // queue the flush
+    if (!waiting) {
+      waiting = true;
+      nextTick(flushSchedulerQueue);
+    }
+  }
+
+
+
+ promise then  --->  flushCallbacks  --> copies[i]()
+
+
+
+
+
+ 为什么需要 移除依赖 : 
+
+
+ resutl(){
+	
+     if( a > 10) { return this.a }
+
+     return this.a + b;
+}
+
+现在设置 a = 100,  这时候 这个watcher 就需要移除 dep(b)了

@@ -1,0 +1,18 @@
+ end: function end () {
+      // remove trailing whitespace
+      var element = stack[stack.length - 1];
+      var lastNode = element.children[element.children.length - 1];
+      if (lastNode && lastNode.type === 3 && lastNode.text === ' ' && !inPre) {
+        element.children.pop();
+      }
+      // pop stack
+      stack.length -= 1;
+      currentParent = stack[stack.length - 1];
+      closeElement(element);
+    },
+
+stack = ['header','div']
+
+删除空白 <header> <div> <span>s</span> </div></header>  删除</span> </div> 之间的空白  , element是div,  解析到了</div> 
+
+ 出栈也就是 脱离div的作用域,  把当前parent指针移动到 header上
